@@ -15,6 +15,14 @@ class Controller():
 		print "switching to this view!", view_type
 		self.model.current_view = view_type
 		self.model.current_cursor = self.model.button_dict[view_type][0]
+		if view_type == "play":
+			#need to set the play buttons = to the current pressed buttons
+			pass
+
+	def iteratePlay(self):
+		self.model.play_mark += 1
+		if self.model.play_mark > 7:
+			self.model.play_mark = 0
 
 	def handleMenuEvent(self, event):
 		buttons = self.model.button_dict["menu"]
@@ -27,8 +35,7 @@ class Controller():
 			if self.model.current_cursor.switch == True:
 				self.switchView("play")
 			else:
-				self.model.current_cursor.pressed = not self.model.current_cursor.pressed
-
+				self.pressMenuButton()
 	def handlePlayEvent(self, event):
 		buttons = self.model.button_dict["play"]
 		current = self.model.current_cursor
@@ -42,6 +49,29 @@ class Controller():
 			else:
 				self.model.current_cursor.pressed = not self.model.current_cursor.pressed
 
+	def pressMenuButton(self):
+		#current cursor should be pressed
+		pressed_buttons = self.model.current_pressed
+		cursor = self.model.current_cursor
+
+		if not cursor.pressed:
+			cursor.pressed = True
+			pressed_buttons.append(cursor)
+		else:
+			cursor.pressed = False
+			pressed_buttons.pop(pressed_buttons.index(cursor))
+
+		if len(pressed_buttons) > 3:
+			popped = pressed_buttons.pop(0)
+			popped.pressed = False
+
+		if pressed_buttons != self.model.current_pressed:
+			print "ERROR WITH REFERENCE PASS"
+
+		#if size of current pressed buttons >= 3
+			#pop a button from the list 
+			#change its pressed value to false
+		#press current button, add it to front of the list
 
 
 

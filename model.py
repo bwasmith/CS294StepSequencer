@@ -1,4 +1,4 @@
-X_SIZE = 800
+X_SIZE = 1000
 Y_SIZE = 640
 import pygame
 #class to store the internal state of the current game board
@@ -9,12 +9,16 @@ class Model():
 		self.view_dict = {}
 		self.button_dict = {}
 
+		self.current_pressed = []
+
 		self.initialize_menu_data()
 		self.initialize_play_data()
 
 		#initialize to first menu button
 		self.current_cursor = self.button_dict[self.current_view][0]
 
+		self.play_mark = 0
+		self.play_difference = (X_SIZE - 300)/8
 
 		self.screen = None
 
@@ -49,19 +53,19 @@ class Model():
 
 ##PLAY
 	def initialize_play_data(self):
-		play_buttons = self.initializePlayButtons(3)
 		play_stream = self.initializePlayStream(3,8)
 
 		all_play_buttons = [self.createSwitchButton()]
-		all_play_buttons += play_buttons
+		# all_play_buttons += play_buttons
 
 		self.add_view_buttons("play", all_play_buttons)
 
 	def initializePlayButtons(self, num):
-		return []
+		return 
 
 	def initializePlayStream(self, num1, num2):
-		return []
+
+		return 
 
 
 #GENERAL FUNCTION

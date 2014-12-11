@@ -1,6 +1,6 @@
 import pygame
 
-X_SIZE = 800
+X_SIZE = 1000
 Y_SIZE = 640
 #mean to display the current state (from model) of the applicationw
 class View():
@@ -68,13 +68,16 @@ class Play_View(View):
 	def display(self):
 		self.model.screen.fill((0,50,0))
 		self.displayCurrentCursor()
-		self.displayPlayButton()
-		
+		self.displayPlayButtons()
+		self.displayPlayMarkers()
+
 		pygame.display.flip()
 
 
 
-	def displayPlayButton(self):
+
+
+	def displayPlayButtons(self):
 		for button in self.model.button_dict["play"]:
 			if button.switch:
 				pygame.draw.rect(self.model.screen, pygame.color.THECOLORS["orange"],(button.x, button.y, button.size, button.size))
@@ -82,6 +85,13 @@ class Play_View(View):
 				pygame.draw.rect(self.model.screen, pygame.color.THECOLORS["green"],(button.x, button.y, button.size, button.size))
 			else:
 				pygame.draw.rect(self.model.screen, pygame.color.THECOLORS["red"],(button.x, button.y, button.size, button.size))
+		num_buttons = len(self.model.current_pressed)
+		y_start = 
+		for button in self.model.current_pressed:
 
 
-
+	def displayPlayMarkers(self):
+		location = self.model.play_mark
+		pygame.draw.circle(self.model.screen, pygame.color.THECOLORS["pink"],(300 + location*self.model.play_difference, 100), 10)
+		for i in range(0,8):
+			pygame.draw.line(self.model.screen, pygame.color.THECOLORS["pink"],(300 + i*self.model.play_difference, 115), (300+i*self.model.play_difference,Y_SIZE),2)

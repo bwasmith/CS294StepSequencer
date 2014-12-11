@@ -22,6 +22,7 @@ c.switchView("menu")
 v = m.getCurrentView()
 
 running = True
+
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -31,5 +32,9 @@ while running:
         	v = m.getCurrentView()
         	print m.current_view, "current view"
         	v.display()
+    if m.current_view == "play":
+    	c.iteratePlay()
+    	v.display()
+    	pygame.time.delay(500)
 
 pygame.quit()
