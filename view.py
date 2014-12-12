@@ -51,7 +51,7 @@ class Menu_View(View):
 			if button.switch:
 				pygame.draw.rect(self.model.screen, pygame.color.THECOLORS["orange"],(button.x, button.y, button.size, button.size))
 			elif (button.pressed):
-				pygame.draw.rect(self.model.screen, pygame.color.THECOLORS["green"],(button.x, button.y, button.size, button.size))
+				pygame.draw.rect(self.model.screen, button.color,(button.x, button.y, button.size, button.size))
 			else:
 				pygame.draw.rect(self.model.screen, pygame.color.THECOLORS["red"],(button.x, button.y, button.size, button.size))
 
@@ -66,7 +66,7 @@ class Play_View(View):
 		self.controller.handlePlayEvent(event)
 
 	def display(self):
-		self.model.screen.fill((0,50,0))
+		self.model.screen.fill((0,0,0))
 		self.displayCurrentCursor()
 		self.displayPlayButtons()
 		self.displayPlayMarkers()
@@ -76,18 +76,20 @@ class Play_View(View):
 
 
 
-
+	#will display the switch button
+	#as well as current menu buttons
 	def displayPlayButtons(self):
+		num_buttons = len(self.model.current_pressed)
+		y_start = 200
+		y_difference = (Y_SIZE-200)/(num_buttons-1)
+		index = 0
 		for button in self.model.button_dict["play"]:
 			if button.switch:
 				pygame.draw.rect(self.model.screen, pygame.color.THECOLORS["orange"],(button.x, button.y, button.size, button.size))
-			elif (button.pressed):
-				pygame.draw.rect(self.model.screen, pygame.color.THECOLORS["green"],(button.x, button.y, button.size, button.size))
 			else:
-				pygame.draw.rect(self.model.screen, pygame.color.THECOLORS["red"],(button.x, button.y, button.size, button.size))
-		num_buttons = len(self.model.current_pressed)
-		y_start = 
-		for button in self.model.current_pressed:
+				pygame.draw.rect(self.model.screen, button.color,(100, y_start + index * y_difference, button.size, button.size))
+				index += 1
+		
 
 
 	def displayPlayMarkers(self):

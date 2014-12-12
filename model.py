@@ -1,5 +1,6 @@
 X_SIZE = 1000
 Y_SIZE = 640
+import random
 import pygame
 #class to store the internal state of the current game board
 #meant to hold all state for current application
@@ -96,6 +97,7 @@ class Model():
 
 class Button():
 	def __init__(self):
+		self.color = (random.randint(10,255), random.randint(10,255),random.randint(100,255))
 		self.x = None
 		self.y = None
 		self.size = None
