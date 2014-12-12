@@ -1,7 +1,9 @@
 import pygame
 
-X_SIZE = 1000
+X_SIZE = 1200
 Y_SIZE = 640
+NUMBER_BEATS = 16
+
 #mean to display the current state (from model) of the applicationw
 class View():
 	def __init__(self):
@@ -81,19 +83,40 @@ class Play_View(View):
 	def displayPlayButtons(self):
 		num_buttons = len(self.model.current_pressed)
 		y_start = 200
-		y_difference = (Y_SIZE-200)/(num_buttons-1)
 		index = 0
 		for button in self.model.button_dict["play"]:
 			if button.switch:
 				pygame.draw.rect(self.model.screen, pygame.color.THECOLORS["orange"],(button.x, button.y, button.size, button.size))
 			else:
-				pygame.draw.rect(self.model.screen, button.color,(100, y_start + index * y_difference, button.size, button.size))
+				pygame.draw.rect(self.model.screen, button.color,(button.x, button.y, button.size, button.size))
 				index += 1
 		
-
-
 	def displayPlayMarkers(self):
 		location = self.model.play_mark
-		pygame.draw.circle(self.model.screen, pygame.color.THECOLORS["pink"],(300 + location*self.model.play_difference, 100), 10)
-		for i in range(0,8):
-			pygame.draw.line(self.model.screen, pygame.color.THECOLORS["pink"],(300 + i*self.model.play_difference, 115), (300+i*self.model.play_difference,Y_SIZE),2)
+		x_start = 250
+		x_difference = (X_SIZE - x_start)/(NUMBER_BEATS+1)
+		pygame.draw.circle(self.model.screen, pygame.color.THECOLORS["pink"],(x_start + location * x_difference, 100), 10)
+
+
+
+
+		for i in range(0,NUMBER_BEATS):
+			x_offset = x_start + i * x_difference
+			pygame.draw.line(self.model.screen, pygame.color.THECOLORS["darkseagreen4"],(x_offset, 115), (x_start + i * x_difference,Y_SIZE),3)
+			for button in self.model.button_dict["play"]:
+				if button.switch:
+					continue
+				if button.sequence_booleans[i]:
+					pygame.draw.circle(self.model.screen, button.color,(x_offset, button.y), 8)
+		#need to display all the current markers at this period in time 
+		#iterate through each button
+			#for each button, iterate over the sequence booleans, print a small circle of button color if True
+
+
+
+
+
+
+
+
+
